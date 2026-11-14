@@ -998,3 +998,33 @@ $("#btn-pagar").addEventListener("click", () => {
   const sub = subtotalCarrito();
   const desc = Math.round(sub * 0.10);
   const env = sub >= MINIMO_GRATIS ? 0 : ENVIO;
+  $("#resumen-pedido").innerHTML =
+    carrito.map(i => { const p = prod(i.id);
+      return `<div class="linea"><span>${i.cant} × ${p.nombre}</span><span>${pesos(p.precio * i.cant)}</span></div>`; }).join("") +
+    `<div class="linea"><span>Envío</span><span>${env === 0 ? "Gratis" : pesos(env)}</span></div>
+     <div class="linea"><span>Descuento Rose Club</span><span>–${pesos(desc)}</span></div>
+     <div class="linea total" style="font-size:16px;margin-bottom:0"><span>Total</span><span>${pesos(sub + env - desc)}</span></div>`;
+  cerrarCarrito();
+  $("#modal").classList.add("abierto"); document.body.style.overflow = "hidden";
+});
+
+/* ============ ARRANQUE ============ */
+pintarCategorias();
+pintarColecciones();
+pintarChips();
+pintarCatalogo();
+pintarMarcas();
+pintarTarifas();
+pintarTestimonios();
+pintarFaq();
+pintarRedes();
+pintarCarrito();
+
+console.log("Rose Vivo · productos:", DATA.productos.length,
+  "| categorias:", DATA.categorias.length,
+  "| marcas:", DATA.marcas.length,
+  "| planes:", DATA.tarifas.length,
+  "| redes:", DATA.redes.length);
+</script>
+</body>
+</html>
